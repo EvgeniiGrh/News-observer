@@ -11,7 +11,7 @@ function getSetOfNews() {
 
   const channelToFind = this[0].value.trim().toLowerCase();
 
-  fetch(`https://newsapi.org/v1/articles?source=${channelToFind}&apiKey=${apiKey}`)
+  fetch(`https://newsapi.org/v2/top-headlines?sources=${channelToFind}&apiKey=${apiKey}`)
   .then(response => response.json())
   .then((response) => {
     response.articles.forEach((article) => {
