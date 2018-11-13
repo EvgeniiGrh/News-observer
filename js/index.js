@@ -1,5 +1,4 @@
 const apiKey = '1fb0b9f3544e4bc98a84f5abc494eb71';
-const apiUrl = 'https://newsapi.org/v1/articles?source={{CHANEL_CODE}}&apiKey={{YOUR_API_KEY}}';
 
 const placeholderForNews = document.querySelector('#placeholder');
 const form = document.querySelector('#form');
@@ -10,14 +9,16 @@ function getSetOfNews() {
   event.preventDefault();
   placeholderForNews.innerHTML = '';
 
-  fetch(`https://newsapi.org/v1/articles?source=${this[0].value}&apiKey=${apiKey}`)
+  const channelToFind = this[0].value.trim().toLowerCase();
+
+  fetch(`https://newsapi.org/v1/articles?source=${channelToFind}&apiKey=${apiKey}`)
   .then(response => response.json())
   .then((response) => {
-    response.articles.forEach((item) => {
-      newsCardFactory(item);
+    response.articles.forEach((article) => {
+      newsCardFactory(article);
     });
   })
-  .catch((error) => {
+  .catch(() => {
     errorFactory();
   });
 }
