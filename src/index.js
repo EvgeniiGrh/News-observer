@@ -3,20 +3,24 @@ const apiKey = '1fb0b9f3544e4bc98a84f5abc494eb71';
 const placeholderForNews = document.querySelector('#placeholder');
 const form = document.querySelector('#form');
 
-form.addEventListener('submit', getSetOfNews);
+form.addEventListener('submit', searchSetOfNews);
 
-function getSetOfNews() {
+async function searchSetOfNews() {
   event.preventDefault();
   placeholderForNews.innerHTML = '';
 
   const channelToFind = this[0].value.trim().toLowerCase();
 
-  fetch(`https://newsapi.org/v2/top-headlines?sources=${channelToFind}&apiKey=${apiKey}`)
+  const articles = await getSetOfNewsFromApi(channelToFind);
+
+  articles.forEach(article => newsCardFactory(article));
+}
+
+async function getSetOfNewsFromApi(channelToFind) {
+  return fetch(`https://newsapi.org/v2/top-headlines?sources=${channelToFind}&apiKey=${apiKey}`)
   .then(response => response.json())
   .then((response) => {
-    response.articles.forEach((article) => {
-      newsCardFactory(article);
-    });
+    return response.articles;
   })
   .catch(() => {
     errorFactory();

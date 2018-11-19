@@ -1,0 +1,26 @@
+{
+  "name": "news-observer",
+  "version": "1.0.0",
+  "description": "https://evgeniigrh.github.io/News-observer/",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-file src/compiled.js",
+    "watch": "babel src --watch --out-file src/compiled.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvgeniiGrh/News-observer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvgeniiGrh/News-observer/issues"
+  },
+  "homepage": "https://github.com/EvgeniiGrh/News-observer#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6"
+  }
+}
