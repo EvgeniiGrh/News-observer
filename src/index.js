@@ -12,6 +12,10 @@ async function searchSetOfNews() {
   const channelToFind = this[0].value.trim().toLowerCase();
 
   const articles = await getSetOfNewsFromApi(channelToFind);
+  
+  if (!articles) {
+    return errorFactory();
+  }
 
   articles.forEach(article => newsCardFactory(article));
 }
@@ -21,9 +25,6 @@ async function getSetOfNewsFromApi(channelToFind) {
   .then(response => response.json())
   .then((response) => {
     return response.articles;
-  })
-  .catch(() => {
-    errorFactory();
   });
 }
 
