@@ -1,3 +1,6 @@
+import 'babel-polyfill';
+import 'whatwg-fetch';
+
 const apiKey = '1fb0b9f3544e4bc98a84f5abc494eb71';
 
 const placeholderForNews = document.querySelector('#placeholder');
