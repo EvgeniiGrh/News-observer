@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -23,6 +25,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.json$/,
+        loader: path.resolve('./customLoader/customLoader.js'),
       },
     ],
   }

@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.button-hide{
+  display: none;
+}
+
 .inner-container{
   max-width: 1600px;
   height: 100%;
