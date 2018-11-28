@@ -7,18 +7,9 @@
 </head>
 <body>
   <div class='wrapper'>
+    <button id='lazy-load-js-css'>Show News</button>
+
     <header class='header'>
-        <button id='lazy-load-js-css' onclick="
-        (function() {
-          var s = document.createElement('script');
-          var button = document.querySelector('#lazy-load-js-css');
-          s.type = 'text/javascript';
-          s.async = true;
-          s.src = './src/bundle.js';
-          document.querySelector('body').appendChild(s);
-          button.classList.add('button-hide');
-        })();
-      ">Show News</button>
       <div class="inner-container">
         <div class="header-container">
             <h1 class='header-title'>News observer</h1>
@@ -37,6 +28,6 @@
       </div>
     </section>
   </div>
-  <!-- <script src="./src/bundle.js"></script> -->
+  <script src='src/lazyLoadingScript.js'></script>
 </body>
 </html>
