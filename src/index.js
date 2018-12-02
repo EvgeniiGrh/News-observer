@@ -4,7 +4,6 @@ import '../styles/reset.css';
 import '../styles/style.css';
 
 import newsCardFactory from './newsCardFactory';
-import errorFactory from './errorFactory';
 import getSetOfNewsFromApi from './getSetOfNewsFromApi';
 import jsonFile from '../customLoader/test.json';
 
@@ -27,7 +26,11 @@ async function searchSetOfNews() {
   const articles = await getSetOfNewsFromApi(channelToFind, apiKey);
   
   if (!articles) {
-    return errorFactory(placeholderForNews);
+    import('./errorFactory').then((module) => {
+      module.default(placeholderForNews);
+    });
+
+    return;
   }
 
   articles.forEach(article => newsCardFactory(article, placeholderForNews));
