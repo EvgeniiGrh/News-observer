@@ -6,10 +6,6 @@ module.exports = {
     filename: './src/bundle.js',
     path: __dirname,
   },
-  devServer: {
-    inline:true,
-    port: 10000
-  },
   module: {
     rules: [
       {
