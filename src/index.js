@@ -23,16 +23,14 @@ async function searchSetOfNews() {
   
   const channelToFind = this[0].value.trim().toLowerCase();
 
-  const articles = await getSetOfNewsFromApi(channelToFind, apiKey);
-  
-  if (!articles) {
-    import('./errorFactory').then((module) => {
-      module.default(placeholderForNews);
+  try {
+    const articles = await getSetOfNewsFromApi(channelToFind, apiKey);
+    articles.forEach(article => newsCardFactory(article, placeholderForNews));
+  } 
+  catch(error) {
+    import('./errorsHandler').then((module) => {
+      module.default.generateErrorMessage(placeholderForNews, error);
     });
-
-    return;
   }
-
-  articles.forEach(article => newsCardFactory(article, placeholderForNews));
 }
 
