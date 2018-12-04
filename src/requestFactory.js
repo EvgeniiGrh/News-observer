@@ -7,7 +7,6 @@ export default function requestFactory(type, body){
     requestObject.header = new Headers();
     requestObject.body = body;
   }
-  debugger
 
   return requestObject;
 }
