@@ -1,8 +1,8 @@
 import { methods, status } from './constants.js';
-import requestFactory from './requestFactory.js';
+import proxy from './proxyRequest.js';
 
 export default async function getSetOfNewsFromApi(channelToFind, apiKey) {
-  return fetch(`https://newsapi.org/v2/top-headlines?sources=${channelToFind}&apiKey=${apiKey}`, requestFactory(methods.get))
+  return fetch(`https://newsapi.org/v2/top-headlines?sources=${channelToFind}&apiKey=${apiKey}`, proxy[methods.GET])
   .then(response => response.json())
   .then((response) => {
     if (response.status === status.error) {

@@ -1,7 +1,7 @@
 export const methods = {
-  get: 'GET',
-  post: 'POST',
-  put: 'PUT',
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
 }
 
 export const status = {
