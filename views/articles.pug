@@ -1,0 +1,19 @@
+html
+	head
+		title= 'News'
+	body
+		h1= 'News: '
+		ul(class='blogsList')
+			each arcticle in articles
+				li
+					a(href= '/articles/' + arcticle.id)= arcticle.name
+					span(
+					class='deleteBlog'
+					data-id=arcticle.id)='X'
+		span='ID: '
+		input(
+			type='text'
+			id='addBlogInput')
+		button(
+			id='addBlogButton')= 'Add blog'
+		//- script(src='/js/blogs.js')
