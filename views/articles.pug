@@ -3,17 +3,17 @@ html
 		title= 'News'
 	body
 		h1= 'News: '
-		ul(class='blogsList')
-			each arcticle in articles
+		ul(class='articlesList')
+			each article in articles
 				li
-					a(href= '/articles/' + arcticle.id)= arcticle.name
+					a(href= '/articles/' + article.id)= article.title
 					span(
-					class='deleteBlog'
-					data-id=arcticle.id)='X'
+						class='deleteArticle'
+						data-id=article.id)='   delete'
 		span='ID: '
 		input(
 			type='text'
-			id='addBlogInput')
+			id='input')
 		button(
-			id='addBlogButton')= 'Add blog'
-		//- script(src='/js/blogs.js')
+			id='button')= 'Add blog'
+		script(src='/js.js')
