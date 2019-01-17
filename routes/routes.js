@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 let fs = require('fs');
 
-let data = fs.readFileSync('./src/articles.json', 'utf8');
+let data = fs.readFileSync('./src/json/articles.json', 'utf8');
 let articlesArray = JSON.parse(data);
 
 router.get('/', function(req, res) {
@@ -23,14 +23,27 @@ router.get('/:id', function(req, res, next) {
 
 router.delete('/:id', function(req, res, next) {
 	articlesArray = articlesArray.filter(el => el.id !== req.params.id);
-	fs.writeFileSync('./src/articles.json', JSON.stringify(articlesArray));
+	fs.writeFileSync('./src/json/articles.json', JSON.stringify(articlesArray));
 	res.redirect('/articles');
 });
 
 router.put('/:id', function(req, res, next) {
 	articlesArray.push(req.body);
-	fs.writeFileSync('./src/articles.json', JSON.stringify(articlesArray));
+	fs.writeFileSync('./src/json/articles.json', JSON.stringify(articlesArray));
 	res.end('/');
+});
+
+router.post('/:title', function(req, res, next) {
+
+	let element = articlesArray.find((el) => {
+		return el.title === req.body.title;
+	})
+
+ 	if (element) {
+		element.text = req.body.text;
+		fs.writeFileSync('./src/json/articles.json', JSON.stringify(articlesArray));
+	}
+	next();
 });
 
 module.exports = router;

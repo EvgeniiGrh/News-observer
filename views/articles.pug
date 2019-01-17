@@ -16,4 +16,13 @@ html
 			id='input')
 		button(
 			id='button')= 'Add blog'
+
+		div
+			span='Enter title of an article you wanna update: '
+			input(type='text' class='updateArticleTitle')
+		div
+			span='Enter new text for this article: '
+			input(type='text' class='updateArticleText')
+		button(class='updateArticleButton')= 'Update'
+			
 		script(src='/js.js')
