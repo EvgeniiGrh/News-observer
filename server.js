@@ -29,6 +29,8 @@ app.get('/', function (req, res, next) {
 
 app.use('/articles', require('./routes/routes'));
 
+app.use('/users', require('./routes/usersRoutes'));
+
 app.use((req, res, next) => {
   res.render('error', { message: 'Sorry, but something went wrong!' });
 });

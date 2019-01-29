@@ -1,0 +1,19 @@
+html
+	head
+		title= 'register'
+	body
+	form(method='post', action="/users/register")
+		div
+			label Username:
+			input(name='username', placeholder='enter your username')
+		div
+			label Password:
+			input(name='password', placeholder='enter your password', type='password')
+		div
+			label Repeat Password:
+			input(name='password2', placeholder='repeat your password', type='password')
+		div
+			label Email:
+			input(name='email', placeholder='enter your email', type='email')
+		div
+			input(type='submit', value='Register')

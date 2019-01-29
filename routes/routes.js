@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/frontcamp', {useNewUrlParser: true});
@@ -54,6 +53,8 @@ router.put('/:id', function (req, res, next) {
 router.post('/:title', function(req, res, next) {
 	articlesModel.update({title: req.body.title}, {
 		$set: {'text': req.body.text}
+	}, (err, res) => {
+		console.log(res);
 	});
 
 	res.redirect('/articles');
