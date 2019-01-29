@@ -10,7 +10,7 @@ articlesList.addEventListener('click', e => {
     if (e.target.className != 'deleteArticle') return;
 
     let xhr = new XMLHttpRequest();
-    xhr.open('DELETE', '/articles/' + e.target.dataset.id);
+    xhr.open('DELETE', '/articles/' + e.target.dataset.title);
   
     xhr.onreadystatechange = function () {
           window.location.href = '/articles';

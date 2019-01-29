@@ -1,49 +1,62 @@
-let express = require('express');
-let router = express.Router();
-let fs = require('fs');
+const express = require('express');
+const router = express.Router();
+const fs = require('fs');
 
-let data = fs.readFileSync('./src/json/articles.json', 'utf8');
-let articlesArray = JSON.parse(data);
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/frontcamp', {useNewUrlParser: true});
 
-router.get('/', function(req, res) {
-	res.render('articles', { articles: articlesArray});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+	console.log('we are connected');
 });
 
+const Schema = mongoose.Schema;
+const articleScheme = new Schema({
+    title: String,
+    text: String
+});
+const articlesModel = mongoose.model('articles', articleScheme);
+
+router.get('/', (req, res) => {
+  articlesModel.find({}, (error, articlesArray) => {
+      res.render('articles', {articles: articlesArray})
+  });
+});
 
 router.get('/:id', function(req, res, next) {
-	let id = req.params.id,
-  article = articlesArray.find(el => el.id === id);
+	let id = req.params.id;
 
-	if (article) {
-		res.render('article', {article: article});
-	} else {
-		next();
-	}
+	articlesModel.findOne({title: id}, (error, article) => {
+		res.render('article', { article: article })
+	});
 });
 
 router.delete('/:id', function(req, res, next) {
-	articlesArray = articlesArray.filter(el => el.id !== req.params.id);
-	fs.writeFileSync('./src/json/articles.json', JSON.stringify(articlesArray));
+	articlesModel.deleteOne({title: req.params.id}, (err, res) => {
+		console.log(res);
+	});
+
 	res.redirect('/articles');
 });
 
-router.put('/:id', function(req, res, next) {
-	articlesArray.push(req.body);
-	fs.writeFileSync('./src/json/articles.json', JSON.stringify(articlesArray));
+router.put('/:id', function (req, res, next) {
+	const Article = mongoose.model("articles", articleScheme);
+	const article = new Article({
+		title: req.body.title,
+		text: req.body.text,
+	});
+	article.save()
+
 	res.end('/');
 });
 
 router.post('/:title', function(req, res, next) {
+	articlesModel.update({title: req.body.title}, {
+		$set: {'text': req.body.text}
+	});
 
-	let element = articlesArray.find((el) => {
-		return el.title === req.body.title;
-	})
-
- 	if (element) {
-		element.text = req.body.text;
-		fs.writeFileSync('./src/json/articles.json', JSON.stringify(articlesArray));
-	}
-	next();
+	res.redirect('/articles');
 });
 
 module.exports = router;

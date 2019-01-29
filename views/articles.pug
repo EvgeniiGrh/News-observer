@@ -6,10 +6,10 @@ html
 		ul(class='articlesList')
 			each article in articles
 				li
-					a(href= '/articles/' + article.id)= article.title
+					a(href= '/articles/' + article.title)= article.title
 					span(
 						class='deleteArticle'
-						data-id=article.id)='   delete'
+						data-title=article.title)='   delete'
 		span='ID: '
 		input(
 			type='text'
