@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/frontcamp', {useNewUrlParser: true});
@@ -17,7 +18,15 @@ const articleScheme = new Schema({
 });
 const articlesModel = mongoose.model('articles', articleScheme);
 
-router.get('/', (req, res) => {
+function isLoggedIn(req, res, next){
+	if (req.isAuthenticated()) {
+		return next();
+	} else {
+		res.redirect('/users/login');
+	}
+}
+
+router.get('/', isLoggedIn, (req, res) => {
   articlesModel.find({}, (error, articlesArray) => {
       res.render('articles', {articles: articlesArray})
   });
