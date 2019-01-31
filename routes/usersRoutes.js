@@ -19,9 +19,7 @@ router.get('/login', function(req, res) {
 router.post('/register', function(req, res) {
   User.register(new User({ username: req.body.username }), req.body.password, function(err, user){
     if (err) {
-      console.log('BODY ', req.body);
-      console.log('ERROR ', err);
-      return res.render('/register', { account : user });
+      return res.render('error', { message: err });
     }
 
     passport.authenticate('local')(req, res, function(){
@@ -34,17 +32,9 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
   res.redirect('/');
 });
 
-function isLoggedIn(req, res, next) {
-  console.log('99999999999 ', req.isAuthenticated());
-  if (req.isAuthenticated())
-      return next();
-  res.status(400).json({
-      'message': 'access denied'
-  });
-}
-
-router.get('/ping', isLoggedIn, function(req, res){
-  res.status(200).send("pong!");
+router.get('/logout', function(req, res){
+  req.logOut();
+  res.redirect('/');
 });
 
 module.exports = router;

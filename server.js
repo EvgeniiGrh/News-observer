@@ -21,8 +21,6 @@ app.use((req, res, next) => {
 	logger.info(`Url: ${req.url}, Date: ${(new Date()).toLocaleTimeString()}`);
 	next();
 });
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(session({
   secret: 'secret',
@@ -30,6 +28,8 @@ app.use(session({
   resave: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
