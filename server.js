@@ -1,9 +1,11 @@
 const express        = require('express');
-let path = require('path');
+const path = require('path');
 const bodyParser     = require('body-parser');
-let logger = require('./src/js/logger');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+const logger = require('./src/js/logger');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const User = require('./models/User');
 
 const app = express();
 
@@ -22,7 +24,13 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-const User = require('./models/User');
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
