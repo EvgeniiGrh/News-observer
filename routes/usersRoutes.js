@@ -12,6 +12,16 @@ router.get('/register', function(req, res) {
   res.render('register', {});
 });
 
+router.get('/users/facebook', 
+  passport.authenticate('facebook')
+);
+
+router.get('/users/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
 router.get('/login', function(req, res) {
   res.render('login', { user : req.user });
 });
